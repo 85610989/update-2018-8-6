@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title%}{% endblock %}</title>
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/index.css') }}">
+    <script>
+	$(function () {
+  $('[data-toggle="popover"]').popover()
+})
+</script>
+</head>
+<body>
+<div class="container">
+    <div class="jumbotron">
+        <div class="page-header">
+            <h1>还款测算器<small>Beta 1.0</small></h1>
+            <br>
+            <p><a class="btn btn-success btn-sm" href="#" role="button" data-toggle="modal" data-target="#myModal">By 西红柿泡饭</a></p>
+        </div>
+    </div>
+    {% block main %}{% endblock %}
+    <!-- model -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">CARD</h4>
+              </div>
+              <div class="modal-body">
+                <img src="{{url_for('static',filename='images/me.jpg') }}" class="img-circle img-responsive">
+                <br>
+                <address>
+                  <strong>Swipal, Inc.</strong><br>
+                  Zhongshan Garden Road, Nanshan District, Shenzhen,<br>
+                  Tcl international E city F5-1B<br>
+                  <abbr title="Phone">P:</abbr> (0755) 13888888888
+                </address>
+
+                <address>
+                  <strong>Zhipeng Jiang</strong><br>
+                  <a href="mailto:#">zhipeng_jiang@foxmail.com</a>
+                </address>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+</div>
+</body>
+<script src="{{url_for('static',filename='js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{url_for('static',filename='js/bootstrap.min.js') }}"></script>
+</html>

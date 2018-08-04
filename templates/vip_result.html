@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title%}table{% endblock %}
+{% block main %}
+    <div class="main">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-center">期次</th>
+                    <th class="text-center">应还本金</th>
+                    <th class="text-center">应还利息</th>
+                    <th class="text-center">应还总额</th>
+                    <th class="text-center">剩余本金</th>
+                    <th class="text-center">实际月利率</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for i in repayMethod %}
+                <tr>
+                    <td class="text-center">{{i[0]}}</td>
+                    <td class="text-center">{{i[1]}}</td>
+                    <td class="text-center">{{i[2]}}</td>
+                    <td class="text-center">{{i[3]}}</td>
+                    <td class="text-center">{{i[4]}}</td>
+                    <td class="text-center">{{i[5]}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

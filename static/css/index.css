@@ -1,0 +1,20 @@
+
+.logo{
+    width:30px;
+    height: auto;
+}
+
+.form-container{
+    margin:0 auto;
+    padding: 10px;
+    overflow: hidden;
+}
+
+.main{
+    margin:0 auto;
+    overflow: hidden;
+}
+
+.page-title{
+    text-align: center;
+}
