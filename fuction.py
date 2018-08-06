@@ -46,7 +46,7 @@ def average_capital(PV,mouth_rate,nper,Sum_interest=0,returned_capital=0):
         Sum_interest+=IPMT
         PMT=PPMT+IPMT
         Sum_money = PV + Sum_interest
-        yield i,round(PPMT,1), round(IPMT,1), round(PMT,1),round(left_capital,1),"%.2f%%" % (mouth_rate * 100)
+        yield '第'+str(i)+'期',round(PPMT,1), round(IPMT,1), round(PMT,1),round(left_capital,1),"%.2f%%" % (mouth_rate * 100)
         if i == nper:
             yield "还款总额："+str(round(Sum_money,1)),"总利息："+str(round(Sum_interest,1)),"年利率："+str("%.2f%%" % (EIR * 100))
 
@@ -65,12 +65,12 @@ def equal_capital_equal_interest(PV,mouth_rate,nper,Sum_interest=0,returned_capi
         Sum_interest += IPMT
         actual_mouth_rate = IPMT / (left_capital + PPMT)
         Sum_money = PV + Sum_interest
-        yield i,round(PPMT,1), round(IPMT,1), round(PMT,1),round(left_capital,1),"%.2f%%" % (actual_mouth_rate * 100)
+        yield '第'+str(i)+'期',round(PPMT,1), round(IPMT,1), round(PMT,1),round(left_capital,1),"%.2f%%" % (actual_mouth_rate * 100)
         if i == nper:
             yield "还款总额："+str(round(Sum_money,1)),"总利息："+str(round(Sum_interest,1)),"年利率："+str("%.2f%%" % (EIR * 100))
 
 
-#先息后本
+#按月还息到期还本
 def interest_first_then_capital(PV,mouth_rate,nper):
     IPMT=PV*mouth_rate
     Sum_interest=IPMT*nper
@@ -84,7 +84,37 @@ def interest_first_then_capital(PV,mouth_rate,nper):
             PPMT = PV
         PMT=PPMT+IPMT
         Sum_money = PV + Sum_interest
-        yield i,round(PPMT, 1), round(IPMT, 1), round(PMT, 1),round(left_capital,1),"%.2f%%" % (mouth_rate * 100)
+        yield '第'+str(i)+'期',round(PPMT, 1), round(IPMT, 1), round(PMT, 1),round(left_capital,1),"%.2f%%" % (mouth_rate * 100)
+        if i == nper:
+            yield "还款总额："+str(round(Sum_money,1)),"总利息："+str(round(Sum_interest,1)),"年利率："+str("%.2f%%" % (EIR * 100))
+
+
+
+#按季还息到期还本
+def quarter_interest_first_then_capital(PV,mouth_rate,nper,Sum_interest=0,returned_capital=0):
+    IPMT=PV*mouth_rate
+
+    EIR = mouth_rate * 12
+    for i in range(1, nper + 1):
+        if i % 3 == 0 and i != nper:
+            IPMT = PV * mouth_rate * 3
+            PPMT = 0
+        elif i % 3 != 0 and i != nper:
+            IPMT = 0
+            PPMT = 0
+        elif i % 3 != 0 and i == nper:
+            IPMT = (nper % 3) * PV * mouth_rate
+            PPMT = PV
+        elif i % 3 == 0 and i == nper:
+            IPMT = PV * mouth_rate * 3
+            PPMT = PV
+
+        PMT = PPMT + IPMT
+        returned_capital += PPMT  # 求出已还本金
+        left_capital = PV - returned_capital  # 求出剩余本金
+        Sum_interest += IPMT
+        Sum_money = PV + Sum_interest
+        yield '第'+str(i)+'期',round(PPMT, 1), round(IPMT, 1), round(PMT, 1),round(left_capital,1),"%.2f%%" % (mouth_rate * 100)
         if i == nper:
             yield "还款总额："+str(round(Sum_money,1)),"总利息："+str(round(Sum_interest,1)),"年利率："+str("%.2f%%" % (EIR * 100))
 
